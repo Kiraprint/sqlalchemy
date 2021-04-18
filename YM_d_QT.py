@@ -32,6 +32,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.pushButton)
         self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label.setText("")
+        self.label.setScaledContents(True)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         MainWindow.setCentralWidget(self.centralwidget)
