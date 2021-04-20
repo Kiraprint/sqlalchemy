@@ -1,5 +1,6 @@
 import sys
 
+from smth_finder import get_org
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5 import QtCore
@@ -62,8 +63,11 @@ class App(QMainWindow, Ui_MainWindow):
             self.set_map()
 
     def set_map(self):
+        text = self.lineEdit.text()
         qp = QPixmap()
-        qp.loadFromData(get_map(self.x, self.y, self.delta, self.mode))
+        content = get_org(text, self.mode)
+        content= content if content else get_map(self.x, self.y, self.delta, self.mode)
+        qp.loadFromData(content)
         self.label.setPixmap(qp)
 
 
