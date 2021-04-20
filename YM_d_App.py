@@ -18,8 +18,10 @@ class App(QMainWindow, Ui_MainWindow):
 
         self.keyPressed.connect(self.on_key)
 
+        self.x, self.y = 66.0, 66.0
         self.delta = 0.0001
         self.MAX_D, self.MIN_D = 90.0, 0.0001
+        self.MAX_X, self.MIN_X, self.MAX_Y, self.MIN_Y = 180.0, -180.0, 90.0, -90.0
 
     def keyPressEvent(self, event):
         super(App, self).keyPressEvent(event)
@@ -36,9 +38,26 @@ class App(QMainWindow, Ui_MainWindow):
             self.delta = max(self.MIN_D, self.delta)
             self.set_map()
 
+        elif event.key() == QtCore.Qt.Key_Down:
+            self.y -= self.delta
+            self.y = max(self.MIN_Y, self.y)
+            self.set_map()
+        elif event.key() == QtCore.Qt.Key_Up:
+            self.y += self.delta
+            self.y = min(self.MAX_Y, self.y)
+            self.set_map()
+        elif event.key() == QtCore.Qt.Key_Right:
+            self.x += self.delta
+            self.x = min(self.MAX_X, self.x)
+            self.set_map()
+        elif event.key() == QtCore.Qt.Key_Left:
+            self.x -= self.delta
+            self.x = max(self.MIN_X, self.x)
+            self.set_map()
+
     def set_map(self):
         qp = QPixmap()
-        qp.loadFromData(get_map(66, 66, self.delta))
+        qp.loadFromData(get_map(self.x, self.y, self.delta))
         self.label.setPixmap(qp)
 
 
