@@ -4,7 +4,7 @@ import requests
 def get_map(x, y, delta):
     map_params = {
         "ll": ",".join([str(x), str(y)]),
-        "spn": ",".join([str(delta), str(delta)]),
+        "spn": f'{delta},{delta}',
         "l": "sat",
     }
 
