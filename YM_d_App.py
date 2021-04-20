@@ -15,13 +15,19 @@ class App(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle('YandexMap')
         self.pushButton.clicked.connect(self.set_map)
-
+        self.buttonGroup.buttonToggled.connect(self.change_mode)
         self.keyPressed.connect(self.on_key)
+        self.mode = 'Scheme'
 
         self.x, self.y = 66.0, 66.0
         self.delta = 0.0001
         self.MAX_D, self.MIN_D = 90.0, 0.0001
         self.MAX_X, self.MIN_X, self.MAX_Y, self.MIN_Y = 180.0, -180.0, 90.0, -90.0
+
+    def change_mode(self):
+        sender = self.buttonGroup.checkedButton()
+        self.mode = sender.text()
+        self.set_map()
 
     def keyPressEvent(self, event):
         super(App, self).keyPressEvent(event)
@@ -57,7 +63,7 @@ class App(QMainWindow, Ui_MainWindow):
 
     def set_map(self):
         qp = QPixmap()
-        qp.loadFromData(get_map(self.x, self.y, self.delta))
+        qp.loadFromData(get_map(self.x, self.y, self.delta, self.mode))
         self.label.setPixmap(qp)
 
 
