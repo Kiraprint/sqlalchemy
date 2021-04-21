@@ -24,6 +24,7 @@ class App(QMainWindow, Ui_MainWindow):
         self.delta = 0.0001
         self.MAX_D, self.MIN_D = 90.0, 0.0001
         self.MAX_X, self.MIN_X, self.MAX_Y, self.MIN_Y = 180.0, -180.0, 90.0, -90.0
+        self.point = ''
 
     def change_mode(self):
         sender = self.buttonGroup.checkedButton()
@@ -65,8 +66,8 @@ class App(QMainWindow, Ui_MainWindow):
     def set_map(self):
         text = self.lineEdit.text()
         qp = QPixmap()
-        content = get_org(text, self.mode)
-        content= content if content else get_map(self.x, self.y, self.delta, self.mode)
+        content, self.point = get_org(text, self.mode)
+        content= content if content else get_map(self.x, self.y, self.delta, self.mode, self.point)
         qp.loadFromData(content)
         self.label.setPixmap(qp)
 

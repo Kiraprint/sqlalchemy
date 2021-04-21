@@ -64,4 +64,4 @@ def get_org(toponym_to_find, mode):
     map_api_server = "http://static-maps.yandex.ru/1.x/"
     # ... и выполняем запрос
     response = requests.get(map_api_server, params=map_params)
-    return response.content
+    return response.content, org_point
