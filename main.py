@@ -14,18 +14,9 @@ app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 def main():
     db_session.global_init("db/blogs.db")
     db_sess = db_session.create_session()
-    user = User(surname='Scott', name='Ridley', age=21, position='captain', speciality='research engineer',
-                address='module_1', email='scott_chief@mars.org')
-    user2 = User(surname='Scot', name='Idley', age=22, position='warrior', speciality='sniper',
-                 address='module_2', email='scot_chief@mars.org')
-    user3 = User(surname='Cott', name='Dley', age=23, position='pilot', speciality='pilot',
-                 address='module_3', email='cott_chief@mars.org')
-    user4 = User(surname='Ott', name='Ley', age=24, position='chef', speciality='chef',
-                 address='module_4', email='ott_chief@mars.org')
-    db_sess.add(user)
-    db_sess.add(user2)
-    db_sess.add(user3)
-    db_sess.add(user4)
+    job = Jobs(team_leader=1, job='deployment of residential modules 1 and 2', work_size=15, end_date=None,
+               is_finished=False)
+    db_sess.add(job)
     app.run()
 
 
