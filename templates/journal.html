@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 style="text-align: center">Works log</h3>
+<div style="margin-left: 25px;">
+{% for job in jobs %}
+
+	<h3>Action # {{ job.id }}</h3>
+	<table style="margin-bottom: 50px">
+		<tr class="t-header">
+			<th>Title of activity</th>
+			<th>Team leader</th>
+			<th>Duration</th>
+			<th>List of collaborators</th>
+			<th>Is finished</th>
+		</tr>
+
+		<tr class="t-content">
+			<td style="width: 40%">{{ job.job }}</td>
+			{% set cap = session.query(User).filter(User.id == job.team_leader).first() %}
+			<td>{{ cap.surname + ' ' + cap.name }}</td>
+			<td>{{ job.work_size }} hours</td>
+			<td>{{ job.collaborators }}</td>
+			{% if job.is_finished == 0 %}
+			<td style="background-color: pink">Is not finished</td>
+			{% else %}
+			<td>Is finished</td>
+			{% endif %}
+		</tr>
+
+	</table>
+
+
+{% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>
